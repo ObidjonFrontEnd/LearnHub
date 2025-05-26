@@ -1,5 +1,8 @@
 
 {
   "Login": "Kirish",
-  "Register": "Ro'yxatdan o'tish"
+  "Register": "Ro'yxatdan o'tish",
+  "Hisob yaratish":"Hisob yaratish",
+  "Elektron pochtani tasdiqlang":"Elektron pochtani tasdiqlang",
+  "Hisob kirish":"Hisob kirish"
 }

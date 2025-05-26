@@ -21,7 +21,7 @@ const Header = () => {
 	
 	return (
 		<header className='w-full '>
-			<nav className='w-full z-40 fixed top-0 shadow-lg '>
+			<nav className='w-full z-40 fixed top-0 shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]'>
 				<div className='w-full mx-auto flex justify-between items-center  px-[10px]'>
 					<div className='logo w-[100px] h-[100px]'>
 						<Link to={'/'}>
