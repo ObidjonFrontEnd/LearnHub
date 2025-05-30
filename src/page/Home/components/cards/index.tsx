@@ -50,7 +50,7 @@ const Cards = () => {
     return response.data.data
   }
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['majors'],
     queryFn: getMajors,
   })

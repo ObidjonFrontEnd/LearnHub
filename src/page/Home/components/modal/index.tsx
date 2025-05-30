@@ -1,9 +1,9 @@
 import { useSearchModal } from '@/store/searchModal'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Modal = () => {
 	type Major = {
@@ -152,20 +152,48 @@ const Modal = () => {
 							</div>
 
 							<div className='mt-[50px] flex justify-between'>
-								<button
-									type='submit'
-									className='relative overflow-hidden px-[25px] py-[5px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold group transition-colors duration-300 cursor-pointer shadow-lg'
-								>
-									<span className='relative z-10 transition-colors duration-300 group-hover:text-[#D56A42] flex items-center gap-[5px] justify-center'>
+								<button className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer hidden md:block'>
+									<span className='relative z-10 transition-colors duration-300 group-hover:text-[#D56A42]'>
 										OK
 									</span>
+
 									<span className='absolute inset-0 w-full h-full translate-y-[100%] group-hover:translate-y-[0] transition-transform duration-700 ease-out z-0 pointer-events-none'>
-										{/* waves */}
+										<svg
+											className='absolute inset-0 w-[200%] h-full'
+											viewBox='0 0 1200 100'
+											preserveAspectRatio='none'
+										>
+											<path
+												d='M0,10 C150,40 350,0 500,20 C650,40 850,0 1200,10 L1200,100 L0,100 Z'
+												fill='#ffffff'
+												style={{
+													opacity: 0.6,
+													animation: 'wave1 12s linear infinite',
+												}}
+											/>
+											<path
+												d='M0,20 C250,0 450,40 700,10 C950,40 1050,20 1200,20 L1200,100 L0,100 Z'
+												fill='#ffffff'
+												style={{
+													opacity: 0.4,
+													animation: 'wave2 10s linear infinite',
+												}}
+											/>
+											<path
+												d='M0,40 C350,10 450,40 650,30 C850,20 950,50 1200,40 L1200,100 L0,100 Z'
+												fill='#ffffff'
+												style={{
+													opacity: 0.8,
+													animation: 'wave3 8s linear infinite',
+												}}
+											/>
+										</svg>
 									</span>
 								</button>
+								
 
 								<button
-									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer shadow-lg'
+									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer hidden md:block'
 									onClick={e => {
 										e.preventDefault()
 										close()
@@ -174,8 +202,38 @@ const Modal = () => {
 									<span className='relative z-10 transition-colors duration-300 group-hover:text-white'>
 										{t('Bekor qilish')}
 									</span>
+
 									<span className='absolute inset-0 w-full h-full translate-y-[100%] group-hover:translate-y-[0] transition-transform duration-700 ease-out z-0 pointer-events-none'>
-										{/* waves */}
+										<svg
+											className='absolute inset-0 w-[200%] h-full'
+											viewBox='0 0 1200 100'
+											preserveAspectRatio='none'
+										>
+											<path
+												d='M0,10 C150,40 350,0 500,20 C650,40 850,0 1200,10 L1200,100 L0,100 Z'
+												fill='#D56A42'
+												style={{
+													opacity: 0.6,
+													animation: 'wave1 12s linear infinite',
+												}}
+											/>
+											<path
+												d='M0,20 C250,0 450,40 700,10 C950,40 1050,20 1200,20 L1200,100 L0,100 Z'
+												fill='#D56A42'
+												style={{
+													opacity: 0.4,
+													animation: 'wave2 10s linear infinite',
+												}}
+											/>
+											<path
+												d='M0,40 C350,10 450,40 650,30 C850,20 950,50 1200,40 L1200,100 L0,100 Z'
+												fill='#D56A42'
+												style={{
+													opacity: 0.8,
+													animation: 'wave3 8s linear infinite',
+												}}
+											/>
+										</svg>
 									</span>
 								</button>
 							</div>

@@ -1,5 +1,6 @@
 import { MapPin, Phone } from 'lucide-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type MajorItem = {
 	id: number
@@ -28,12 +29,12 @@ type Props = {
 
 const Card: React.FC<Props> = ({ center }) => {
 	return (
-		<div className=' w-full rounded-[10px] overflow-hidden  pt-0 '>
-			<div className='w-full h-full overflow-hidden'>
+		<Link to={`/centers/${center?.id}`} className=' w-full rounded-[10px] overflow-hidden  pt-0 '>
+			<div className='w-full h-[250px] md:h-[280px] overflow-hidden'>
 				<img
-					src={`https://findcourse.net.uz/api/image/1745612726234.png`}
+					src={`https://findcourse.net.uz/api/image/${center?.image}`}
 					alt={center.name}
-					className=' w-full h-auto rounded relative z-10'
+					className=' w-full h-full rounded relative z-10'
 				/>
 			</div>
 			<div className='px-[15px] py-[15px] dark:text-white'>
@@ -46,7 +47,7 @@ const Card: React.FC<Props> = ({ center }) => {
 					<Phone size={20} /> {center.phone}
 				</p>
 			</div>
-		</div>
+		</Link>
 	)
 }
 
