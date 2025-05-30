@@ -1,4 +1,5 @@
 import { useSearchModal } from '@/store/searchModal'
+import { useFilterStore } from '@/store/filterStore'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -43,9 +44,7 @@ const Modal = () => {
 		total: number
 	}
 
-	// Добавьте префикс _ к неиспользуемым переменным
-	const [_selectedMajors, setSelectedMajors] = useState<string[]>([])
-	const [_selectedRegions, setSelectedRegions] = useState<string[]>([])
+	const { selectedMajors, selectedRegions, setSelectedMajors, setSelectedRegions } = useFilterStore()
 	const { isOpenSearchModal, setOpenSearchMenu } = useSearchModal()
 
 	const fetchFields = async (): Promise<Field[]> => {
@@ -110,12 +109,13 @@ const Modal = () => {
 														type='checkbox'
 														value={name}
 														className='w-[20px]'
+														checked={selectedMajors.includes(name)}
 														onChange={e => {
 															const { checked, value } = e.target
-															setSelectedMajors(prev =>
+															setSelectedMajors(
 																checked
-																	? [...prev, value]
-																	: prev.filter(item => item !== value)
+																	? [...selectedMajors, value]
+																	: selectedMajors.filter(item => item !== value)
 															)
 														}}
 													/>
@@ -136,12 +136,13 @@ const Modal = () => {
 													type='checkbox'
 													value={name}
 													className='w-[20px]'
+													checked={selectedRegions.includes(name)}
 													onChange={e => {
 														const { checked, value } = e.target
-														setSelectedRegions(prev =>
+														setSelectedRegions(
 															checked
-																? [...prev, value]
-																: prev.filter(item => item !== value)
+																? [...selectedRegions, value]
+																: selectedRegions.filter(item => item !== value)
 														)
 													}}
 												/>
@@ -153,7 +154,11 @@ const Modal = () => {
 							</div>
 
 							<div className='mt-[50px] flex justify-between'>
-								<button className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer hidden md:block'>
+								<button 
+									type="button"
+									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer hidden md:block'
+									onClick={() => close()}
+								>
 									<span className='relative z-10 transition-colors duration-300 group-hover:text-[#D56A42]'>
 										OK
 									</span>

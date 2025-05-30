@@ -2,14 +2,24 @@
 import { useSearchModal } from '@/store/searchModal'
 
 import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 
 
 const Search = () => {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [search , setSearch ] = useState<string>("")
 		const { t } = useTranslation()
 		const { setOpenSearchMenu } = useSearchModal()
+
+		useEffect(() => {
+			if (search) {
+				setSearchParams({ search });
+			} else {
+				setSearchParams({});
+			}
+		}, [search]);
 
 	return (
 		<div className='flex w-full px-[15px] md:px-[0] md:w-[60%] flex-col md:flex-row mx-auto gap-[10px]'>
