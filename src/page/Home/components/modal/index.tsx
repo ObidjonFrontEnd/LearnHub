@@ -43,8 +43,9 @@ const Modal = () => {
 		total: number
 	}
 
-	const [selectedMajors, setSelectedMajors] = useState<string[]>([])
-	const [selectedRegions, setSelectedRegions] = useState<string[]>([])
+	// Добавьте префикс _ к неиспользуемым переменным
+	const [_selectedMajors, setSelectedMajors] = useState<string[]>([])
+	const [_selectedRegions, setSelectedRegions] = useState<string[]>([])
 	const { isOpenSearchModal, setOpenSearchMenu } = useSearchModal()
 
 	const fetchFields = async (): Promise<Field[]> => {
