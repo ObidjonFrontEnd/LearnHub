@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 
 
 const Search = () => {
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [, setSearchParams] = useSearchParams(); // Only destructure what you use
 	const [search , setSearch ] = useState<string>("")
 		const { t } = useTranslation()
 		const { setOpenSearchMenu } = useSearchModal()

@@ -3,7 +3,8 @@ import { useFilterStore } from '@/store/filterStore'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+// Remove the unused import below
+// import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Modal = () => {
