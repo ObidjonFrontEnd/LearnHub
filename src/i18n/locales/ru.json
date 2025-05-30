@@ -1,6 +1,17 @@
-
 {
-  "Login": "Войты",
-  "Register": "Регистиратся",
-  "Hisob yaratish" : "Зарегистрироваться"
+  "Login": "Войти",
+  "Register": "Зарегистрироваться",
+  "Hisob yaratish": "Создать аккаунт",
+  "Elektron pochtani tasdiqlang": "Подтвердите электронную почту",
+  "Hisob kirish": "Вход в аккаунт",
+  "Bekor qilish": "Отмена",
+  "Yo'nalishlarni tanlang": "Выберите направления",
+  "Hududlarni tanlang": "Выберите регионы",
+  "Kurslar va hudud": "Курсы и регионы",
+  "Resusrlar": "Ресурсы",
+  "Sevimli": "Избранное",
+  "Navbatlar": "Очереди",
+  "Bosh Sahifa": "Главная страница",
+  "Profilni tahrirlash": "Редактировать профиль",
+  "Chiqish": "Выход"
 }

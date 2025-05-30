@@ -1,6 +1,17 @@
-
 {
   "Login": "Login",
-  "Register": "Sign In",
-  "Hisob yaratish":"Create Account"
+  "Register": "Register",
+  "Hisob yaratish": "Create Account",
+  "Elektron pochtani tasdiqlang": "Verify Email",
+  "Hisob kirish": "Account Login",
+  "Bekor qilish": "Cancel",
+  "Yo'nalishlarni tanlang": "Select Directions",
+  "Hududlarni tanlang": "Select Regions",
+  "Kurslar va hudud": "Courses and Regions",
+  "Resusrlar": "Resources",
+  "Sevimli": "Favorites",
+  "Navbatlar": "Queues",
+  "Bosh Sahifa": "Home",
+  "Profilni tahrirlash": "Edit Profile",
+  "Chiqish": "Logout"
 }
