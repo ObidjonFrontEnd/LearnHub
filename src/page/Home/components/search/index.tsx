@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 const Search = () => {
 	const [search , setSearch ] = useState<string>("")
 		const { t } = useTranslation()
-		const {_isOpenSearchModal, setOpenSearchMenu } = useSearchModal()
+		const { setOpenSearchMenu } = useSearchModal()
 
 	return (
 		<div className='flex w-full px-[15px] md:px-[0] md:w-[60%] flex-col md:flex-row mx-auto gap-[10px]'>
