@@ -17,7 +17,7 @@ const MenuBar = () => {
   };
 	
 	return (
-		<section className={`${isOpen ? "translate-x-[0%]" : "translate-x-[200%]"} duration-[0.3s] absolute right-0 top-0 z-50 w-full h-full bg-white dark:bg-black flex justify-center items-center pt-[50px] px-[25px] md:hidden`} >
+		<section className={`${isOpen ? "translate-x-[0%]" : "translate-x-[200%]"} duration-[0.3s] absolute right-0 top-0 z-50 w-full h-full bg-white dark:bg-gray-800 flex justify-center items-center pt-[50px] px-[25px] md:hidden`} >
 				
 				<div className="absolute right-[15px] top-[35px]" onClick={toggleMenu}>
 					<X />
