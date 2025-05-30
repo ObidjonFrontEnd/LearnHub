@@ -4,7 +4,7 @@ import { useAuth } from '@/store/useAuth'
 import { useUserStore } from '@/store/userData'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { ChevronDown, LogOut, Pencil, User } from 'lucide-react';
+import { ChevronDown, LogOut, Pencil } from 'lucide-react'; // Удалил неиспользуемый импорт User
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -16,7 +16,7 @@ export default function ProfileMenu() {
  
   
 
- const getUserData = async (accessToken) => {
+ const getUserData = async (accessToken: string) => { // Добавил явный тип
   const response = await axios.get(
     'https://findcourse.net.uz/api/users/mydata',
     {
