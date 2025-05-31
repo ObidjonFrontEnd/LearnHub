@@ -10,6 +10,9 @@ const ProfileData = () => {
 	const { t } = useTranslation()
 	const { user } = useUserStore()
 	const [showModal, setShowModal] = useState<boolean>(false);
+	const closeModal = ()=>{
+		setShowModal(false)
+	}
 
 	return (
 		<div className='w-full h-full flex justify-center items-center'>
@@ -112,9 +115,8 @@ const ProfileData = () => {
 			</MagicCard>
 
 			<DeleteAccountModal
-				isOpen={isDeleteModalOpen}
-				onClose={closeDeleteModal}
-				onDelete={handleDeleteAccount}
+				isOpen={showModal}
+				onClose={closeModal}
 			/>
 		</div>
 	)
