@@ -41,7 +41,7 @@ const Register = () => {
 			}
 		)
 		const data: RegisterResponse = await response.json()
-	
+
 
 		if (response.ok) {
 			setNotification(data?.message, 'success')

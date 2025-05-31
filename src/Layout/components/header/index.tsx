@@ -20,7 +20,7 @@ const Header = () => {
 	const [lang, setLang] = useState<string>('uz')
 	const { t, i18n } = useTranslation()
 	const { isOpen, toggleMenu } = useMenu()
-
+	console.log(isOpen)
 	const { isDark, toggleTheme } = useTheme()
 	const navigate = useNavigate()
 
