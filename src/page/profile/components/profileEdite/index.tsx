@@ -90,7 +90,7 @@ const ProfileEdite = () => {
 	}
 
 	return (
-		<div className='w-full h-full  mt-[150px] px-[15px]'>
+		<div className='w-full h-full  mt-[150px] px-[15px] mb-[50px]'>
 			<div className='w-full md:w-[70%] mx-auto mb-[20px]'>
 				<Link
 					to={'/'}
