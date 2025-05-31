@@ -17,7 +17,7 @@ const ProfileData = () => {
 	
 
 	return (
-		<div className='w-full h-full flex justify-center items-center mt-[50px]'>
+		<div className='w-full h-full flex justify-center items-center mb-[50px]'>
 			<MagicCard
 				gradientOpacity={0}
 				className='md:w-[60%] bg-amber-300   mx-auto w-full min-h-[450px] shadow-lg rounded-[8px] p-[20px]'
