@@ -52,7 +52,7 @@ export default function ProfileMenu() {
         onClick={()=>{setOpenProfileMenu(!isOpenProfileMenu)}}
         className="flex items-center gap-2 group px-4 py-2 rounded-full cursor-pointer  transition"
       >
-        <div className="w-8 h-8 rounded-full group bg-gray-200 border border-purple-500 flex items-center justify-center" ><img src={`${data?.data?.image === "default.jpg" ? (data?.data?.image): (`https://findcourse.net.uz/api/image/${data?.data?.image}`)}`} alt="user foto" /></div>
+        <div className="w-8 h-8 rounded-full group bg-gray-200 border border-purple-500 flex items-center justify-center overflow-hidden " ><img src={`${data?.data?.image === "default.jpg" ? (data?.data?.image): (`https://findcourse.net.uz/api/image/${data?.data?.image}`)}`} alt="user foto" /></div>
         <span className="font-medium text-sm dark:text-white text-gray-800">{data?.data?.firstName} {data?.data?.lastName}</span>
         <ChevronDown className={`${isOpenProfileMenu ? "rotate-[180deg]" : ""}  duration-[0.3s]`} size={16} />
       </button>
@@ -60,7 +60,7 @@ export default function ProfileMenu() {
       {isOpenProfileMenu && (
         <div className="absolute right-0 mt-2 w-64  dark:bg-gray-800 bg-white border rounded-xl shadow-lg z-10 p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gray-200 border border-purple-500 flex justify-center items-center"><img src={`${data?.data?.image === "default.jpg" ? (data?.data?.image): (`https://findcourse.net.uz/api/image/${data?.data?.image}`)}`} alt="user foto" /></div>
+            <div className="w-8 h-8 rounded-full group bg-gray-200 border border-purple-500 flex items-center justify-center overflow-hidden " ><img src={`${data?.data?.image === "default.jpg" ? (data?.data?.image): (`https://findcourse.net.uz/api/image/${data?.data?.image}`)}`} alt="user foto" /></div>
             <div>
               <p className="font-semibold text-sm text-gray-900 dark:text-white">{data?.data?.firstName} {data?.data?.lastName}</p>
               <p className="text-xs text-gray-500">{data?.data?.email}</p>

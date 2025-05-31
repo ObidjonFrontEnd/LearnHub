@@ -1,10 +1,9 @@
-import { useSearchModal } from '@/store/searchModal'
 import { useFilterStore } from '@/store/filterStore'
+import { useSearchModal } from '@/store/searchModal'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
-// Remove the unused import below
-// import { useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
 const Modal = () => {
@@ -45,7 +44,12 @@ const Modal = () => {
 		total: number
 	}
 
-	const { selectedMajors, selectedRegions, setSelectedMajors, setSelectedRegions } = useFilterStore()
+	const {
+		selectedMajors,
+		selectedRegions,
+		setSelectedMajors,
+		setSelectedRegions,
+	} = useFilterStore()
 	const { isOpenSearchModal, setOpenSearchMenu } = useSearchModal()
 
 	const fetchFields = async (): Promise<Field[]> => {
@@ -116,7 +120,9 @@ const Modal = () => {
 															setSelectedMajors(
 																checked
 																	? [...selectedMajors, value]
-																	: selectedMajors.filter(item => item !== value)
+																	: selectedMajors.filter(
+																			item => item !== value
+																	  )
 															)
 														}}
 													/>
@@ -155,9 +161,9 @@ const Modal = () => {
 							</div>
 
 							<div className='mt-[50px] flex justify-between'>
-								<button 
-									type="button"
-									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer hidden md:block'
+								<button
+									type='button'
+									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer'
 									onClick={() => close()}
 								>
 									<span className='relative z-10 transition-colors duration-300 group-hover:text-[#D56A42]'>
@@ -197,10 +203,9 @@ const Modal = () => {
 										</svg>
 									</span>
 								</button>
-								
 
 								<button
-									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer hidden md:block'
+									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer '
 									onClick={e => {
 										e.preventDefault()
 										close()

@@ -36,7 +36,7 @@ const Register = () => {
 					phone,
 					password,
 					role,
-					image: '/avatar.jpg',
+					image: 'default.jpg',
 				}),
 			}
 		)
