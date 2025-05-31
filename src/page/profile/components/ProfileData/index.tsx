@@ -112,8 +112,9 @@ const ProfileData = () => {
 			</MagicCard>
 
 			<DeleteAccountModal
-				isOpen={showModal}
-				onClose={() => setShowModal(false)}		
+				isOpen={isDeleteModalOpen}
+				onClose={closeDeleteModal}
+				onDelete={handleDeleteAccount}
 			/>
 		</div>
 	)
