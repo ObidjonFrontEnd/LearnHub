@@ -18,7 +18,7 @@ import ProfileMenu from './prifleMenu'
 import { useUserStore } from '@/store/userData'
 
 const Header = () => {
-	const [lang, setLang] = useState<string>('uz')
+	const [ ,setLang] = useState<string>('uz')
 	const { t, i18n } = useTranslation()
 	const { isOpen, toggleMenu } = useMenu()
 	console.log(isOpen)
