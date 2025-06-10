@@ -1,7 +1,7 @@
 import { MagicCard } from '@/components/magicui/magic-card'
 import { API } from '@/hooks/useApi'
 import { useFilterStore } from '@/store/filterStore'
-import { useAuth } from '@/store/useAuth'
+
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { lazy, Suspense } from 'react'
