@@ -95,8 +95,10 @@ const Center = () => {
 				},
 			}
 		)
-
-		queryClient.invalidateQueries(['getLike'])
+		if(response.status >=200 && response.status<400){
+				queryClient.invalidateQueries({queryKey:['getLike']})
+		}
+		
 	}
 
 	const deleteLike = async (id: number) => {
@@ -110,7 +112,7 @@ const Center = () => {
 		} catch (error) {
 			console.error('Failed to unlike:', error)
 		}
-		queryClient.invalidateQueries(['getLike'])
+		queryClient.invalidateQueries({queryKey:['getLike']})
 	}
 
 	const handleLikeToggle = async (id: number) => {

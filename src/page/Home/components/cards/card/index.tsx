@@ -72,7 +72,7 @@ const Card: React.FC<Props> = ({ center }) => {
 			}
 		)
 		if(response.status >=200 && response.status<400){
-			queryClient.invalidateQueries(['getLike'])
+			queryClient.invalidateQueries({queryKey:['getLike']})
 		}
 	
 	}
@@ -88,7 +88,7 @@ const Card: React.FC<Props> = ({ center }) => {
 		} catch (error) {
 			console.error('Failed to unlike:', error)
 		}
-		queryClient.invalidateQueries(['getLike'])
+		queryClient.invalidateQueries({queryKey:['getLike']})
 	}
 
 	const handleLikeToggle = async (id:number) => {

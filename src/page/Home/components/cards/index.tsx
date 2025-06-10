@@ -53,7 +53,7 @@ type Major = {
 const Cards = () => {
 	const [searchParams] = useSearchParams()
 	const search = searchParams.get('search') || ''
-	const { accessToken } = useAuth()
+
 
 	const { selectedMajors, selectedRegions } = useFilterStore()
 
