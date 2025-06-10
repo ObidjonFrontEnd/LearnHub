@@ -71,8 +71,10 @@ const Card: React.FC<Props> = ({ center }) => {
 				},
 			}
 		)
-
-		queryClient.invalidateQueries(['getLike'])
+		if(response.status >=200 && response.status<400){
+			queryClient.invalidateQueries(['getLike'])
+		}
+	
 	}
 
 	const deleteLike = async (id: number) => {
