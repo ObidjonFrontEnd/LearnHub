@@ -1,3 +1,4 @@
+import { API } from '@/hooks/useApi'
 import { useAuth } from '@/store/useAuth'
 import { useUserStore } from '@/store/userData'
 import axios from 'axios'
@@ -29,7 +30,8 @@ const DeleteAccountModal: FC<DeleteAccountModalProps> = ({
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      `https://findcourse.net.uz/api/users/${user?.id}`,
+      `
+      ${API}/users/${user?.id}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

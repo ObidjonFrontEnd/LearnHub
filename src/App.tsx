@@ -12,6 +12,8 @@ import { useAuth } from './store/useAuth'
 import PrivateRoute from './hooks/PrivateRoute'
 import PublicRoute from './hooks/PublicRoute'
 import ProfileEdite from './page/profile/components/profileEdite'
+import Center from './page/center'
+import SEO from './page/SEO'
 
 
 function App() {
@@ -24,10 +26,14 @@ function App() {
 			<Routes>
 				<Route path='/' element={<MainLayout />}>
 					<Route index element={<Home />} />
+					<Route path='/center/:id' element={<Center />} />
 
+					
 					<Route element={<PrivateRoute />}>
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/profile/edite' element={<ProfileEdite/>}/>
+						<Route path='/seo' element={<SEO/>}/>
+
 					</Route>
 
 			

@@ -5,6 +5,7 @@ import { useAuth } from '@/store/useAuth'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { API } from '@/hooks/useApi'
 
 const Login = () => {
 	const { t } = useTranslation()
@@ -23,8 +24,11 @@ const Login = () => {
 
 	const loginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
+
+		
 		const response = await fetch(
-			'https://findcourse.net.uz/api/users/login',
+			`${API}/users/login`,
 			{
 				method: 'POST',
 				headers: {
@@ -36,7 +40,12 @@ const Login = () => {
 				}),
 			}
 		)
+
+
+		
 		const data: LoginResponse = await response.json()
+
+		
 
 
 		if (response.ok) {
@@ -51,6 +60,8 @@ const Login = () => {
 		} else {
 			setNotification(data?.message || 'Ошибка входа', 'error')
 		}
+ 	
+		
 	}
 
 	return (

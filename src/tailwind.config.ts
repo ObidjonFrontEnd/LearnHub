@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss'
 import scrollbar from 'tailwind-scrollbar'
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
 	darkMode: 'class',
@@ -17,9 +17,12 @@ const config: Config = {
 					'100%': { opacity: '1', transform: 'translateY(0)' },
 				},
 			},
-      animation: {
-      fadeUp: 'fadeUp 0.4s ease-out forwards',
-    },
+			animation: {
+				fadeUp: 'fadeUp 0.4s ease-out forwards',
+			},
+			boxShadow: {
+				dark: '0 2px 8px rgba(255, 255, 255, 0.05)',
+			},
 		},
 	},
 	plugins: [scrollbar],

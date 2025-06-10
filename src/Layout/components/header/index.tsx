@@ -15,6 +15,7 @@ import MenuBar from './menuModal'
 import { useTheme } from '@/store/useThem'
 import { useAuth } from '@/store/useAuth'
 import ProfileMenu from './prifleMenu'
+import { useUserStore } from '@/store/userData'
 
 const Header = () => {
 	const [lang, setLang] = useState<string>('uz')
@@ -28,6 +29,9 @@ const Header = () => {
 		setLang(lang)
 		i18n.changeLanguage(lang)
 	}
+	const {user} = useUserStore()
+
+	
 
 	const { accessToken } = useAuth()
 
@@ -37,7 +41,7 @@ const Header = () => {
 				<div className='w-full mx-auto flex justify-between items-center  px-[10px]'>
 					<div className='logo w-[100px] h-[100px] gap-[10px] flex items-center justify-center'>
 						<div
-							className='block md:hidden hover:text-[#D56A42] duration-[0.3s]'
+							className='block lg:hidden hover:text-[#D56A42] duration-[0.3s]'
 							onClick={toggleMenu}
 						>
 							<Menu />
@@ -47,7 +51,7 @@ const Header = () => {
 						</Link>
 					</div>
 
-					<ul className=' hidden md:flex items-center gap-[20px] font-bold text-[20px]'>
+					<ul className=' hidden lg:flex items-center gap-[20px] font-bold text-[20px]'>
 						<li>
 							<NavLink
 								to={'/'}
@@ -85,21 +89,31 @@ const Header = () => {
 								{t('Navbatlar')}
 							</NavLink>
 						</li>
+
+						
+						<li className={`${user?.role ? "" : "hidden"}`}>
+							<NavLink to={'seo'}>
+									{t("SEO boshqaruv paneli")}
+							</NavLink>
+						</li>
 					</ul>
 
-					<div className='flex gap-[10px]'>
+					<div className='flex  md:gap-[10px]'>
 						<button onClick={toggleTheme}>
 							{isDark ? <Sun className='text-[#D56A42]' /> : <Moon />}
 						</button>
 						
 
 						<select
-							value={lang}
+							defaultValue={""}
 							onChange={e => {
 								changeLang(e.target.value)
 							}}
 							className='hidden md:block'
 						>
+							<option value="" className='dark:text-black '  disabled>
+								{t("Tilni tanlang")}
+							</option>
 							<option value='uz' className='dark:text-black'>
 								Uz
 							</option>

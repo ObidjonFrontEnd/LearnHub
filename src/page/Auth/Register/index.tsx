@@ -1,3 +1,4 @@
+import { API } from '@/hooks/useApi'
 import { useEmailOtpStore } from '@/store/EmailForOtp'
 import { useNotification } from '@/store/useNotification'
 import { useState } from 'react'
@@ -22,26 +23,22 @@ const Register = () => {
 
 	const registerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		const response = await fetch(
-			'https://findcourse.net.uz/api/users/register',
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					firstName,
-					lastName,
-					email,
-					phone,
-					password,
-					role,
-					image: 'default.jpg',
-				}),
-			}
-		)
+		const response = await fetch(`${API}/users/register`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				firstName,
+				lastName,
+				email,
+				phone,
+				password,
+				role,
+				image: 'default.jpg',
+			}),
+		})
 		const data: RegisterResponse = await response.json()
-
 
 		if (response.ok) {
 			setNotification(data?.message, 'success')

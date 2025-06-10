@@ -1,3 +1,4 @@
+import { API } from '@/hooks/useApi'
 import { useFilterStore } from '@/store/filterStore'
 import { useSearchModal } from '@/store/searchModal'
 import { useQuery } from '@tanstack/react-query'
@@ -54,14 +55,14 @@ const Modal = () => {
 
 	const fetchFields = async (): Promise<Field[]> => {
 		const res = await axios.get<{ data: Field[] }>(
-			'https://findcourse.net.uz/api/fields'
+			`${API}/major`
 		)
 		return res.data.data
 	}
 
 	const fetchRegions = async (): Promise<Region[]> => {
 		const res = await axios.get<ApiResponse>(
-			'https://findcourse.net.uz/api/regions/search'
+			`${API}/regions/search`
 		)
 		return res.data.data
 	}
@@ -100,15 +101,14 @@ const Modal = () => {
 						transition={{ duration: 0.4, ease: 'easeOut' }}
 						className='formClass md:w-[60%] dark:bg-gray-800 w-full rounded-[30px] h-[700px] px-[15px] py-[10px] bg-white md:px-[30px] overflow-y-auto shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]'
 					>
-						<form action=''>
+						<form action='' className='relative h-full w-full'>
 							<div className='flex flex-col md:flex-row md:justify-between'>
 								<div className='md:w-[50%]'>
 									<h1 className='font-bold text-[#D56A42] text-[25px]'>
 										{t("Yo'nalishlarni tanlang")}
 									</h1>
 									<div className='px-[15px] flex flex-col gap-y-[10px] mt-[10px]'>
-										{data?.map(({ majors }) =>
-											majors?.map(({ id, name }) => (
+										{data?.map(({ id, name  }) =>
 												<label key={id} className='flex gap-[10px] text-[20px]'>
 													<input
 														type='checkbox'
@@ -127,8 +127,7 @@ const Modal = () => {
 														}}
 													/>
 													<span>{name}</span>
-												</label>
-											))
+												</label>	
 										)}
 									</div>
 								</div>
@@ -160,7 +159,7 @@ const Modal = () => {
 								</div>
 							</div>
 
-							<div className='mt-[50px] flex justify-between'>
+							<div className='absolute w-full flex justify-between bottom-[10px] '>
 								<button
 									type='button'
 									className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer'

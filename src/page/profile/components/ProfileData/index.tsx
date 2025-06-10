@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import DeleteAccountModal from '../deleteModal'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API } from '@/hooks/useApi'
 
 const ProfileData = () => {
 	const { t } = useTranslation()
@@ -73,7 +74,7 @@ const ProfileData = () => {
 								src={`${
 									user?.image === 'default.jpg'
 										? user?.image
-										: `https://findcourse.net.uz/api/image/${user?.image}`
+										: `${API}/image/${user?.image}`
 								}`}
 								alt='user foto'
 								className='w-full h-full rounded-full'

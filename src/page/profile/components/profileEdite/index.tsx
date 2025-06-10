@@ -1,4 +1,5 @@
 import { MagicCard } from '@/components/magicui/magic-card'
+import { API } from '@/hooks/useApi'
 import { useAuth } from '@/store/useAuth'
 import { useNotification } from '@/store/useNotification'
 import { useUserStore } from '@/store/userData'
@@ -30,7 +31,7 @@ const ProfileEdite = () => {
 		formData.append('image', file)
 
 		const response = await axios.post(
-			'https://findcourse.net.uz/api/upload',
+			`${API}/upload`,
 			formData,
 			{
 				headers: {
@@ -38,11 +39,12 @@ const ProfileEdite = () => {
 				},
 				validateStatus: () => true,
 			}
-		)
+		)	
+		
 
-		if (response.status === 201) {
+		if (response.status >= 200 && response.status < 400) {
 			const responseImage = await axios.patch(
-				`https://findcourse.net.uz/api/users/${user?.id}`,
+				`${API}/users/${user?.id}`,
 				{
 					image: response.data.data,
 				},
@@ -67,7 +69,7 @@ const ProfileEdite = () => {
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const response = await axios.patch(
-			`https://findcourse.net.uz/api/users/${user?.id}`,
+			`${API}/users/${user?.id}`,
 			{
 				firstName,
 				lastName,
@@ -119,7 +121,7 @@ const ProfileEdite = () => {
 									src={`${
 										user?.image === 'default.jpg'
 											? user?.image
-											: `https://findcourse.net.uz/api/image/${user?.image}`
+											: `${API}/image/${user?.image}`
 									}`}
 									alt='user foto'
 									className='w-full h-full rounded-full'

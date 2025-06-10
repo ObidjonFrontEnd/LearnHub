@@ -7,6 +7,7 @@ import { useEmailOtpStore } from '@/store/EmailForOtp'
 import { useNotification } from '@/store/useNotification'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 import { useNavigate } from 'react-router-dom'
+import { API } from '@/hooks/useApi'
 
 const Otp = () => {
 	const { t } = useTranslation()
@@ -22,7 +23,7 @@ const Otp = () => {
 	
 
 	const handleVerify = async () => {
-		 const response = await fetch('https://findcourse.net.uz/api/users/verify-otp', {
+		 const response = await fetch(`${API}/users/verify-otp`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ const Otp = () => {
 	}
 
 	const handleResend = async() => {
-		 const response = await fetch('https://findcourse.net.uz/api/users/send-otp', {
+		 const response = await fetch(`${API}/users/send-otp`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

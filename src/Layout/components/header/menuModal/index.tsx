@@ -1,15 +1,34 @@
 import { useMenu } from '@/store/isMenu'
-import { X } from 'lucide-react'
-import { useState } from 'react'
+import { useAuth } from '@/store/useAuth'
+import { useUserStore } from '@/store/userData'
+import { CalendarFold, CloudUpload, Heart, House, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 
 const MenuBar = () => {
-		const { isOpen, toggleMenu } = useMenu();
+		const { isOpen, toggleMenu , closeMenu } = useMenu();
 		const [lang , setLang]=useState<string>("uz")
 		const { t, i18n } = useTranslation();
 		const navigate = useNavigate()
+		const { accessToken } = useAuth()
+		const {user} = useUserStore()
+
+		useEffect(() => {
+    const checkWidth = () => {
+      if (window.innerWidth > 1024) {
+        closeMenu()
+      }
+    };
+
+    checkWidth(); 
+
+    window.addEventListener("resize", checkWidth); 
+
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
+		
 
 	const changeLang = (lang: string) => {
 		setLang(lang)
@@ -17,29 +36,89 @@ const MenuBar = () => {
   };
 	
 	return (
-		<section className={`${isOpen ? "translate-x-[0%]" : "-translate-x-[200%]"} duration-[0.3s] absolute right-0 top-0 z-50 w-full h-full bg-white dark:bg-gray-800 flex justify-center items-center pt-[50px] px-[25px] md:hidden`} >
+		<section className={`${isOpen ? "translate-x-[0%]" : "-translate-x-[200%]"} duration-[0.3s] fixed right-0 top-0 z-50 w-full h-full bg-white dark:bg-gray-800 flex justify-center items-center pt-[50px] px-[25px] lg:hidden`} >
 				
 				<div className="absolute right-[15px] top-[35px]" onClick={toggleMenu}>
 					<X />
 				</div>
 
 
-					<div className="w-full text-center flex flex-col h-[80vh] justify-between">
-						<select value={lang} onChange={(e)=>{changeLang(e.target.value)}} className='dark:bg-[#D56A42] px-[5px] rounded-[10px]'>
-							<option value="uz" className='dark:text-black ' >
+					<div className={`${accessToken ? "flex-col-reverse" : "flex-col"} w-full text-center flex  h-[80vh]  justify-between`}>
+						<select defaultValue={""} onChange={(e)=>{changeLang(e.target.value)}} className='dark:bg-[#D56A42] px-[5px] rounded-[10px]'>
+							<option value="" className='dark:text-black  bg-gray-400 text-white'  disabled>
+								{t("Tilni tanlang")}
+							</option>
+							<option value="uz" className='dark:text-black dark:bg-white' >
 								Uz
 							</option>
-							<option value="ru" className='dark:text-black'>
+							<option value="ru" className='dark:text-black dark:bg-white'>
 								Ru
 							</option>
-							<option value="en" className='dark:text-black'>
+							<option value="en" className='dark:text-black dark:bg-white'>
 								En
 							</option>
 					</select>
 
+
+					<ul className='flex-col flex  items-center gap-[20px] font-bold text-[20px]'>
+						<li>
+							<NavLink
+								to={'/'}
+								className={'flex items-center gap-[5px] hover:text-[#D56A42]'}
+								onClick={closeMenu}
+							>
+								<House />
+								{t('Bosh Sahifa')}
+							</NavLink>
+						</li>
+						<li>
+							<NavLink
+								to={'/resurlar'}
+								className={'flex items-center gap-[5px] hover:text-[#D56A42]'}
+								onClick={closeMenu}
+
+							>
+								<CloudUpload />
+								{t('Resusrlar')}
+							</NavLink>
+						</li>
+						<li className={`${accessToken ? '' : 'hidden'}`}>
+							<NavLink
+								to={'/sevimli'}
+								className={'flex items-center gap-[5px] hover:text-[#D56A42]'}
+								onClick={closeMenu}
+
+							>
+								<Heart />
+								{t('Sevimli')}
+							</NavLink>
+						</li>
+
+						<li className={`${accessToken ? '' : 'hidden'}`}>
+							<NavLink
+								to={'/navbat'}
+								className={`flex items-center gap-[5px] hover:text-[#D56A42]`}
+								onClick={closeMenu}
+
+							>
+								<CalendarFold />
+								{t('Navbatlar')}
+							</NavLink>
+						</li>
+
+						
+						<li className={`${user?.role ? "" : "hidden"}`}>	
+							<NavLink to={'seo'}
+							className={`flex items-center gap-[5px] hover:text-[#D56A42]`}  
+							onClick={closeMenu} >
+									{t("SEO boshqaruv paneli")}
+							</NavLink>
+						</li>
+					</ul>
+
 					<div className='flex flex-col gap-[10px] w-full'>
 					
-						<button className='relative overflow-hidden w-full py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer' onClick={()=>{navigate("/login")}}>
+						<button className={`${accessToken ? "hidden" : ""} relative overflow-hidden w-full py-[10px] rounded-xl text-[#D56A42] border border-[#D56A42] font-semibold bg-transparent group transition-colors duration-300 cursor-pointer`} onClick={()=>{navigate("/login"); closeMenu()}}>
 							<span className='relative z-10 transition-colors duration-300 group-hover:text-white'>
 								{t("Login")}
 							</span>
@@ -78,7 +157,7 @@ const MenuBar = () => {
 							</span>
 						</button>
 
-						<button className='relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer'  onClick={()=>{navigate("/register")}}>
+						<button className={`${accessToken ? "hidden" : ""} relative overflow-hidden px-6 py-[10px] rounded-xl text-white bg-[#D56A42] border border-[#D56A42] font-semibold  group transition-colors duration-300 cursor-pointer`}  onClick={()=>{navigate("/register"); closeMenu()}}>
 							<span className='relative z-10 transition-colors duration-300 group-hover:text-[#D56A42]'>
 								{t("Register")}
 							</span>
