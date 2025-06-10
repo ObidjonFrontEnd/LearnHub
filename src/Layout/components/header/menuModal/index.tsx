@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 const MenuBar = () => {
 		const { isOpen, toggleMenu , closeMenu } = useMenu();
-		const [lang , setLang]=useState<string>("uz")
+		const [ , setLang]=useState<string>("uz")
 		const { t, i18n } = useTranslation();
 		const navigate = useNavigate()
 		const { accessToken } = useAuth()
