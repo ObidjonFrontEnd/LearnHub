@@ -1,26 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vite.config.ts",  // или vite.config.js
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"  // Vite по умолчанию собирает проект в /dist
-      }
-    }
-  ],
   "routes": [
     {
-      "src": "/assets/(.*)",
+      "src": "/static/(.*)",
       "headers": { "Cache-Control": "public, max-age=31536000, immutable" }
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html",
-      "headers": { "Cache-Control": "no-cache" }
+      "dest": "/"
     }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
