@@ -44,7 +44,6 @@ export default function ProfileMenu() {
 	const userImage =
 		user?.image === 'default.jpg' ? user?.image : `${API}/image/${user?.image}`
 
-	// Закрытие меню при клике вне
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (menuRef.current && !menuRef.current.contains(event.target as Node)) {

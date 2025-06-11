@@ -1,17 +1,59 @@
-import { useAuth } from '@/store/useAuth'
-import { useNotification } from '@/store/useNotification'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+
+import { useQuery} from '@tanstack/react-query'
 import axios from 'axios'
-import { Bookmark, Heart } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import {  Link, useParams } from 'react-router-dom'
 import DarsgaYozilishModal from './components/modal'
 import { API } from '@/hooks/useApi'
+import Chap from './components/chap'
+import { ArrowLeft } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import Ong from './components/ong'
+
+
+
+export interface Center {
+  id: number;
+  name: string;
+  phone: string;
+  regionId: number;
+  address: string;
+  image: string;
+  seoId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  image: string;
+  role: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Comment {
+  id: number;
+  text: string;
+  star: number;
+  userId: number;
+  centerId: number;
+  createdAt: string;
+  updatedAt: string;
+  user: User;
+  center: Center;
+}
+
 
 const Center = () => {
 	const { id } = useParams()
-	const [raidio, setRadio] = useState<string>('')
+	const { t } = useTranslation()
+
 
 	const getCenter = async (id: string) => {
 		const response = await axios.get(`${API}/centers/${id}`)
@@ -23,178 +65,64 @@ const Center = () => {
 		enabled: !!id,
 	})
 
-	useEffect(() => {
-		setRadio(data?.data?.majors[0]?.name)
-	}, [data])
-
-	const { t } = useTranslation()
-
-	type Filial = {
-		name: string
-		address: string
-		id: number
-	}
-
-	type Majors = {
-		name: string
-	}
-	type LikedCenter = {
-		id: number
-		centerId: number
-	}
-	const { setNotification } = useNotification()
-
-	const { accessToken } = useAuth()
 	const [isModal, setModal] = useState<boolean>(false)
 
-	const darsgaYozilishOpen = () => {
-		if (!accessToken) {
-			setNotification(
-				data.message || 'darsga yozilishdan oldin, tizimga kiring',
-				'error'
-			)
-		} else {
-			setModal(true)
-		}
-	}
+
 	const handelClose = (): void => {
 		setModal(false)
 	}
 
-	const queryClient = useQueryClient()
-	const getLike = async () => {
-		const response = await axios.get(`${API}/liked`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		return response?.data?.data?.map((item: any) => ({
-			id: item.id,
-			centerId: item.centerId,
-		}))
+	const getCommnet = async () =>{
+		const response = await axios.get(`${API}/comments`)
+		return response?.data?.data
 	}
 
-	const { data: likedData } = useQuery<LikedCenter[]>({
-		queryKey: ['getLike'],
-		queryFn: getLike,
-	})
+	const { data:comments } = useQuery<Comment[]>({
+	queryKey: ['comments'],
+	queryFn: getCommnet,
 
-	const isLiked = likedData?.some(like => like.centerId === data?.data?.id)
+})
 
-	const postLike = async (id: number) => {
-		const response = await axios.post(
-			'https://findcourse.net.uz/api/liked',
-			{
-				centerId: id,
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-					'Content-Type': 'application/json',
-					Accept: '*/*',
-				},
-			}
-		)
-		if(response.status >=200 && response.status<400){
-				queryClient.invalidateQueries({queryKey:['getLike']})
-		}
-		
-	}
+	
+const filteredComments: Comment[] | undefined = comments?.filter(
+  (comment) => comment.centerId === Number(id)
+);
 
-	const deleteLike = async (id: number) => {
-		try {
-			await axios.delete(`${API}/liked/${id}`, {
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			})
-			console.log('Successfully unliked')
-		} catch (error) {
-			console.error('Failed to unlike:', error)
-		}
-		queryClient.invalidateQueries({queryKey:['getLike']})
-	}
+	
 
-	const handleLikeToggle = async (id: number) => {
-		const likedItem = likedData?.find(like => like.centerId === data?.data?.id)
+	const getAverageStars = (comments: Comment[] | undefined): number => {
+  if (!comments || comments.length === 0) return 0;
 
-		if (likedItem) {
-			await deleteLike(likedItem.id)
-		} else {
-			await postLike(id)
-		}
-	}
+  const totalStars = comments.reduce((sum, comment) => sum + comment.star, 0);
+  return parseFloat((totalStars / comments.length).toFixed(1));
+};
+	const averageStars = getAverageStars(filteredComments);
+	
+	
+
+	
 
 	return (
-		<section className='mt-[150px] px-[15px] w-full'>
-			<DarsgaYozilishModal
+		<section className='mt-[150px] mb-[50px] px-[10px] w-full'>
+			<Link
+					to={'/'}
+					className='flex gap-[10px] items-center text-[#D56A42] font-bold text-[20px]'
+				>
+					{' '}
+					<ArrowLeft />
+					{t('Bosh sahifaga qaytish')}
+				</Link>
+			<div className="mt-[25px] w-full h-full shadow-[0_0_10px_rgba(0,0,0,0.2)] rounded-[8px] overflow-hidden pb-[50px] dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+				<DarsgaYozilishModal
 				id={data?.data?.id}
 				mojors={data?.data?.majors}
 				filials={data?.data?.filials}
 				isModal={isModal}
 				close={handelClose}
 			/>
-			<div className=' flex w-full flex-col md:flex-row'>
-				<div className='right'>
-					<div className='img w-full relative h-[250px] rounded-[8px] overflow-hidden'>
-						<img
-							src={`${API}/image/${data?.data?.image}`}
-							className='w-full h-full'
-							alt={data?.data?.name}
-						/>
-						<div
-							className='absolute z-20 top-[20px] hover:scale-[1.2] duration-300 right-[20px] text-red-500 bg-gray-200 rounded-full px-[8px] py-[8px]'
-							onClick={() => {
-								handleLikeToggle(data?.data?.id)
-							}}
-						>
-							<Heart fill={isLiked ? 'red' : 'none'} />
-						</div>
-					</div>
-					<div className='mt-[15px] w-full mb-[25px]'>
-						<h2 className='font-bold text-[20px]'>{t('Bizning filia')}</h2>
-						<div className='flex flex-col gap-[10px] mt-[10px]'>
-							{data?.data?.filials.map(({ name, address, id }: Filial) => {
-								return (
-									<Link
-										to={`/filials/${id}`}
-										className='bg-[#D56A42]/35 dark:bg-[#D56A42] dark:text-white  text-black rounded-[6px] px-[15px] py-[10px]'
-										key={id}
-									>
-										<h2 className='text-[18px] font-bold'>{name}</h2>
-										<h3 className='text-[14px] dark:text-white text-gray-500'>
-											{address}
-										</h3>
-									</Link>
-								)
-							})}
-						</div>
-					</div>
-
-					<div className='flex flex-col gap-[10px]'>
-						{data?.data?.majors.map(({ name }: Majors) => {
-							return (
-								<div
-									key={name}
-									onClick={() => setRadio(name)}
-									className={`${
-										raidio == name
-											? 'border-[1px] border-[#D56A42]'
-											: 'border-white dark:border-gray-800 border-[1px]'
-									} dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]  flex gap-[10px] px-[20px] py-[10px]  rounded-[8px] hover:shadow-lg duration-300 shadow-md`}
-								>
-									<Bookmark />
-									<h2>{name}</h2>
-								</div>
-							)
-						})}
-						<button
-							onClick={darsgaYozilishOpen}
-							className='bg-[#D56A42] duration-300 hover:bg-amber-600 w-full rounded-[8px] py-[10px] font-bold text-white'
-						>
-							{t('Darsga yozilish')}
-						</button>
-					</div>
+				<div className="flex flex-col lg:flex-row gap-[30px]">
+					<Chap data={data} averageStars={averageStars} setModal={setModal}/>
+					<Ong data={data} averageStars={averageStars} filteredComments={filteredComments || []} />
 				</div>
 			</div>
 		</section>
