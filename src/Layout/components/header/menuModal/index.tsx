@@ -108,7 +108,7 @@ const MenuBar = () => {
 
 						
 						<li className={`${user?.role ? "" : "hidden"}`}>	
-							<NavLink to={'seo'}
+							<NavLink to={'/seo/myCenters'}
 							className={`flex items-center gap-[5px] hover:text-[#D56A42]`}  
 							onClick={closeMenu} >
 									{t("SEO boshqaruv paneli")}
