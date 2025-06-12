@@ -37,25 +37,43 @@ type LikedCenter = {
 
 const Card: React.FC<Props> = ({ center }) => {
 	const { accessToken } = useAuth()
+	
+	
 	const queryClient = useQueryClient()
 	const getLike = async () => {
-		const response = await axios.get(`${API}/liked`, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-		})
-		return response?.data?.data?.map((item: any) => ({
-			id: item.id,
-			centerId: item.centerId,
-		}))
-	}
-
-	const { data: likedData } = useQuery<LikedCenter[]>({
-		queryKey: ['getLike'],
-		queryFn: getLike,
+	const response = await axios.get(`${API}/liked`, {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+		},
 	})
 
-	const isLiked = likedData?.some(like => like.centerId === center.id)
+	return response?.data?.data?.map((item: any) => ({
+		id: item.id,
+		centerId: item.centerId,
+	}))
+}
+
+
+
+	const { data: likedData } = useQuery<LikedCenter[]>({
+	queryKey: ['getLike'],
+	queryFn: getLike,
+	enabled: !!accessToken, 
+	retry: false,
+})
+
+
+
+
+
+const isCenterLiked = (likedData: LikedCenter[] | undefined, centerId: number): boolean => {
+  if (!likedData || likedData.length === 0) return false
+  return likedData.some(like => Number(like?.centerId) === Number(centerId))
+}
+
+
+const isLiked = isCenterLiked(likedData, center.id)
+
 
 	const postLike = async (id:number) => {
 		const response = await axios.post(
@@ -84,7 +102,6 @@ const Card: React.FC<Props> = ({ center }) => {
 					Authorization: `Bearer ${accessToken}`,
 				},
 			})
-			console.log('Successfully unliked')
 		} catch (error) {
 			console.error('Failed to unlike:', error)
 		}
