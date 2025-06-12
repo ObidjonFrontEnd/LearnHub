@@ -1,10 +1,10 @@
 import { API } from '@/hooks/useApi'
+import { useLikes } from '@/hooks/useLike'
 import { useAuth } from '@/store/useAuth'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
 import { Heart, MapPin, Phone } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 
 type MajorItem = {
 	id: number
@@ -30,112 +30,34 @@ type Center = {
 type Props = {
 	center: Center
 }
-type LikedCenter = {
-	id: number
-	centerId: number
-}
 
 const Card: React.FC<Props> = ({ center }) => {
 	const { accessToken } = useAuth()
-	
-	
-	const queryClient = useQueryClient()
-	const getLike = async () => {
-	const response = await axios.get(`${API}/liked`, {
-		headers: {
-			Authorization: `Bearer ${accessToken}`,
-		},
-	})
+	const { isLiked, toggleLike } = useLikes() 
 
-	return response?.data?.data?.map((item: any) => ({
-		id: item.id,
-		centerId: item.centerId,
-	}))
-}
-
-
-
-	const { data: likedData } = useQuery<LikedCenter[]>({
-	queryKey: ['getLike'],
-	queryFn: getLike,
-	enabled: !!accessToken, 
-	retry: false,
-})
-
-
-
-
-
-const isCenterLiked = (likedData: LikedCenter[] | undefined, centerId: number): boolean => {
-  if (!likedData || likedData.length === 0) return false
-  return likedData.some(like => Number(like?.centerId) === Number(centerId))
-}
-
-
-const isLiked = isCenterLiked(likedData, center.id)
-
-
-	const postLike = async (id:number) => {
-		const response = await axios.post(
-			'https://findcourse.net.uz/api/liked',
-			{
-				centerId: id,
-			},
-			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-					'Content-Type': 'application/json',
-					Accept: '*/*',
-				},
-			}
-		)
-		if(response.status >=200 && response.status<400){
-			queryClient.invalidateQueries({queryKey:['getLike']})
-		}
-	
-	}
-
-	const deleteLike = async (id: number) => {
-		try {
-			await axios.delete(`${API}/liked/${id}`, {
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			})
-		} catch (error) {
-			console.error('Failed to unlike:', error)
-		}
-		queryClient.invalidateQueries({queryKey:['getLike']})
-	}
-
-	const handleLikeToggle = async (id:number) => {
-		const likedItem = likedData?.find(like => like.centerId === center.id)
-		
-
-		if (likedItem) {
-			await deleteLike(likedItem.id)
-		} else {
-			await postLike(id)
-		}
+	const handleLikeToggle = async () => {
+		if (!accessToken) return
+		await toggleLike(center.id)
 	}
 
 	return (
 		<div className='relative'>
 			<div
 				className='absolute z-20 top-[20px] hover:scale-[1.2] duration-300 right-[20px] text-red-500 bg-gray-200 rounded-full px-[8px] py-[8px]'
-				onClick={()=>{handleLikeToggle(center?.id)}}
+				onClick={handleLikeToggle}
 			>
-				<Heart fill={isLiked ? 'red' : 'none'} />
+				<Heart fill={isLiked(center.id) ? 'red' : 'none'} />
 			</div>
+
 			<Link
 				to={`/center/${center?.id}`}
 				className='w-full h-full rounded-[10px] overflow-hidden pt-0'
 			>
-				<div className='w-full  h-[250px] md:h-[280px] overflow-hidden'>
+				<div className='w-full h-[250px] md:h-[280px] overflow-hidden'>
 					<img
 						src={`${API}/image/${center?.image}`}
 						alt={center.name}
-						className='w-full h-full rounded relative z-10'
+						className='w-full h-full rounded relative z-10 object-cover'
 					/>
 				</div>
 				<div className='px-[15px] py-[15px] dark:text-white'>

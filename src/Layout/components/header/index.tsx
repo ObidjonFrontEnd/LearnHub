@@ -119,7 +119,7 @@ useEffect(() => {
 						</li>
 
 						<li className={`${user?.role ? '' : 'hidden'}`}>
-							<NavLink to={'seo'}>{t('SEO boshqaruv paneli')}</NavLink>
+							<NavLink to={'/seo/myCenters'}>{t('SEO boshqaruv paneli')}</NavLink>
 						</li>
 					</ul>
 

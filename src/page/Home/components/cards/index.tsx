@@ -121,7 +121,7 @@ const Cards = () => {
 
 	return (
 		<div className='mt-[100px] w-full px-[15px]'>
-			<div className='w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px]'>
+			<div className='w-full  grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px]'>
 				{filteredCenters.map(center => (
 					<Suspense
 						key={center.id}
