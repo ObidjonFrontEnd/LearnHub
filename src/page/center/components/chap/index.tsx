@@ -8,45 +8,44 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-
 type LikedCenter = {
 	id: number
 	centerId: number
 }
 
 type Major = {
-  name: string
+	name: string
 }
 
 type Filial = {
-  name: string
-  address: string
-  id: number
+	name: string
+	address: string
+	id: number
 }
 
 type CenterData = {
-  id: number
-  name: string
-  image: string
-  majors: Major[]
-  filials: Filial[]
-	address:string
-	phone:string
+	id: number
+	name: string
+	image: string
+	majors: Major[]
+	filials: Filial[]
+	address: string
+	phone: string
 }
 
 type ChapProps = {
-  data: {
-    data: CenterData
-    message?: string
-  }
-  setModal: (value: boolean) => void
-	averageStars:number
+	data: {
+		data: CenterData
+		message?: string
+	}
+	setModal: (value: boolean) => void
+	averageStars: number
 }
 
-const Chap = ({ data , setModal , averageStars }:ChapProps) => {
+const Chap = ({ data, setModal, averageStars }: ChapProps) => {
 	const { accessToken } = useAuth()
 	const { setNotification } = useNotification()
-	const [ radio , setRadio] = useState<string>('')
+	const [radio, setRadio] = useState<string>('')
 
 	useEffect(() => {
 		setRadio(data?.data?.majors[0]?.name)
@@ -129,39 +128,46 @@ const Chap = ({ data , setModal , averageStars }:ChapProps) => {
 	const { t } = useTranslation()
 
 	return (
-		<div  className='w-full lg:w-[35%]'>
-				<div className='right w-full'>
-					<div className='img w-full relative h-[200px] md:h-[250px]  overflow-hidden'>
-						<img
-							src={`${API}/image/${data?.data?.image}`}
-							className='w-full h-full'
-							alt={data?.data?.name}
-						/>
-						<div
-							className='absolute z-20 top-[20px] hover:scale-[1.2] duration-300 right-[20px] text-red-500 bg-gray-200 rounded-full px-[8px] py-[8px]'
-							onClick={() => {
-								handleLikeToggle(data?.data?.id)
-							}}
-						>
-							<Heart fill={isLiked ? 'red' : 'none'} />
+		<div className='w-full lg:w-[35%]'>
+			<div className='right w-full'>
+				<div className='img w-full relative h-[200px] md:h-[250px]  overflow-hidden'>
+					<img
+						src={`${API}/image/${data?.data?.image}`}
+						className='w-full h-full'
+						alt={data?.data?.name}
+					/>
+					<div
+						className='absolute z-20 top-[20px] hover:scale-[1.2] duration-300 right-[20px] text-red-500 bg-gray-200 rounded-full px-[8px] py-[8px]'
+						onClick={() => {
+							handleLikeToggle(data?.data?.id)
+						}}
+					>
+						<Heart fill={isLiked ? 'red' : 'none'} />
+					</div>
+				</div>
+				<div className='px-[8px] sm:px-[15px]'>
+					<div className='md:hidden mt-[15px]  items-start flex justify-between'>
+						<div className=''>
+							<h1 className='font-bold text-[25px]'>{data?.data?.name}</h1>
+							<h2 className='text-[16px] text-gray-500 flex items-center gap-[10px]'>
+								<MapPin /> {data?.data?.address}
+							</h2>
+						</div>
+						<div className='flex items-center gap-[10px] text-yellow-400 px-[10px] py-[5px] rounded-[15px] bg-[#D56A42]/75'>
+							{' '}
+							<Star className='fill-yellow-400' />{' '}
+							<h2 className='text-black'>{averageStars}</h2>
 						</div>
 					</div>
-					<div className="px-[8px] sm:px-[15px]">
 
-						<div className='lg:hidden mt-[15px]  items-start flex justify-between'>
-							<div className="">
-								<h1 className='font-bold text-[25px]'>{data?.data?.name}</h1>
-								<h2 className='text-[16px] text-gray-500 flex items-center gap-[10px]'><MapPin /> {data?.data?.address}</h2>
-							</div>
-							<div className="flex items-center gap-[10px] text-yellow-400 px-[10px] py-[5px] rounded-[15px] bg-[#D56A42]/75"> <Star className='fill-yellow-400' /> <h2 className='text-black'>{averageStars}</h2></div>
-						</div>
-						
-							<div className="lg:hidden mt-[15px] mb-[10px]">
-								<h2 className='text-[16px] text-gray-500 '>{t("Telefon")}</h2>
-								<h2 className='flex gap-[10px] text-[18px] items-center font-bold'><Phone size={20} /> {data?.data?.phone}</h2>
-							</div>
+					<div className='md:hidden mt-[15px] mb-[10px]'>
+						<h2 className='text-[16px] text-gray-500 '>{t('Telefon')}</h2>
+						<h2 className='flex gap-[10px] text-[18px] items-center font-bold'>
+							<Phone size={20} /> {data?.data?.phone}
+						</h2>
+					</div>
 
-						<div className='mt-[15px] w-full mb-[25px]'>
+					<div className='mt-[15px] w-full mb-[25px]'>
 						<h2 className='font-bold text-[20px]'>{t('Bizning filia')}</h2>
 						<div className='flex flex-col gap-[10px] mt-[10px]'>
 							{data?.data?.filials.map(({ name, address, id }: Filial) => {
@@ -205,9 +211,8 @@ const Chap = ({ data , setModal , averageStars }:ChapProps) => {
 							{t('Darsga yozilish')}
 						</button>
 					</div>
-					</div>
 				</div>
-			
+			</div>
 		</div>
 	)
 }

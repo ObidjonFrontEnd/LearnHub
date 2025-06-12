@@ -94,7 +94,7 @@ const Ong = ({ data, averageStars, filteredComments = [] }: OngProps) => {
 
 	return (
 		<div className='w-full lg:w-[60%] pt-[25px] px-[15px]'>
-			<div className='hidden lg:flex items-start w-full justify-between'>
+			<div className='hidden md:flex items-start w-full justify-between'>
 				<div className=''>
 					<h1 className='font-bold text-[25px]'>{data?.data?.name}</h1>
 					<h2 className='text-[16px] text-gray-500 flex items-center gap-[10px]'>
@@ -108,7 +108,7 @@ const Ong = ({ data, averageStars, filteredComments = [] }: OngProps) => {
 				</div>
 			</div>
 
-			<div className='hidden lg:block mt-[15px] mb-[10px]'>
+			<div className='hidden md:block mt-[15px] mb-[10px]'>
 				<h2 className='text-[16px] text-gray-500 '>{t('Telefon')}</h2>
 				<h2 className='flex gap-[10px] text-[18px] items-center font-bold'>
 					<Phone size={20} /> {data?.data?.phone}

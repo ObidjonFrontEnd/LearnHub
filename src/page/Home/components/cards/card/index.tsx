@@ -140,13 +140,13 @@ const isLiked = isCenterLiked(likedData, center.id)
 				</div>
 				<div className='px-[15px] py-[15px] dark:text-white'>
 					<h2 className='text-xl font-bold mb-2'>{center.name}</h2>
-					<p className='text-sm text-gray-700 dark:text-white mb-[10px] flex items-center gap-[10px]'>
+					<div className='text-sm text-gray-700 dark:text-white mb-[10px] flex items-center gap-[10px]'>
 						<MapPin size={20} />
 						{center.address}
-					</p>
-					<p className='text-sm dark:text-white text-gray-600 flex items-center gap-[10px]'>
+					</div>
+					<div className='text-sm dark:text-white text-gray-600 flex items-center gap-[10px]'>
 						<Phone size={20} /> {center.phone}
-					</p>
+					</div>
 				</div>
 			</Link>
 		</div>

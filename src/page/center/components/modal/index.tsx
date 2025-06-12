@@ -94,41 +94,34 @@ const DarsgaYozilishModal = ({
 	const { setNotification } = useNotification()
 
 	const hundelSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-	e.preventDefault()
+		e.preventDefault()
 
-	const formattedVisitDate = kun + soat
+		const formattedVisitDate = kun + soat
 
-	try {
-		const response = await axios.post(
-			`${API}/reseption`,
-			{ centerId: id, filialId, majorId, visitDate: formattedVisitDate },
-			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
+
+			const response = await axios.post(
+				`${API}/reseption`,
+				{ centerId: id, filialId, majorId, visitDate: formattedVisitDate },
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			)
+
+		
+
+			if (response.status >= 200 && response.status < 400) {
+				setNotification(t("mufuaqatli saqlandi"), 'success')
 			}
-		)
-
-		console.log(response.data.data.message)
-
-		if (response.status >= 200 && response.status < 400) {
-			setNotification(response.data.message, 'success')
-		} else {
-			setNotification(response.data.message, 'error')
-		}
-	} catch (error: any) {
-		const errorMessage =
-			error.response?.data?.message || 'Something went wrong'
-		setNotification(errorMessage, 'error')
+	
 	}
-}
-
 
 	return (
 		<div
 			className={`${isModal ? '' : 'scale-0'} ${
 				isBackBlur ? 'bg-black/25 ' : ''
-			} duration-300 w-full fon z-50 h-screen absolute top-0 left-0 px-[15px] flex items-center justify-center`}
+			} duration-300 w-full fon z-50 h-screen fixed top-0 left-0 px-[15px] flex items-center justify-center`}
 			onClick={handleClose}
 		>
 			<div

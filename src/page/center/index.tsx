@@ -120,7 +120,7 @@ const filteredComments: Comment[] | undefined = comments?.filter(
 				isModal={isModal}
 				close={handelClose}
 			/>
-				<div className="flex flex-col lg:flex-row gap-[30px]">
+				<div className="flex flex-col md:flex-row gap-[30px]">
 					<Chap data={data} averageStars={averageStars} setModal={setModal}/>
 					<Ong data={data} averageStars={averageStars} filteredComments={filteredComments || []} />
 				</div>

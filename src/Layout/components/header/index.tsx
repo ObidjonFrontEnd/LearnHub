@@ -8,7 +8,7 @@ import {
 	Moon,
 	Sun,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import MenuBar from './menuModal'
@@ -18,7 +18,7 @@ import ProfileMenu from './prifleMenu'
 import { useUserStore } from '@/store/userData'
 
 const Header = () => {
-	const [ ,setLang] = useState<string>('uz')
+	const [, setLang] = useState<string>('uz')
 	const { t, i18n } = useTranslation()
 	const { isOpen, toggleMenu } = useMenu()
 	console.log(isOpen)
@@ -29,15 +29,43 @@ const Header = () => {
 		setLang(lang)
 		i18n.changeLanguage(lang)
 	}
-	const {user} = useUserStore()
-
-	
+	const { user } = useUserStore()
 
 	const { accessToken } = useAuth()
 
+
+	const [showHeader, setShowHeader] = useState(true)
+const [lastScrollY, setLastScrollY] = useState(0)
+
+useEffect(() => {
+	const handleScroll = () => {
+		const currentScrollY = window.scrollY
+
+		if (currentScrollY > lastScrollY && currentScrollY > 100) {
+
+			setShowHeader(false)
+		} else {
+	
+			setShowHeader(true)
+		}
+
+		setLastScrollY(currentScrollY)
+	}
+
+	window.addEventListener('scroll', handleScroll)
+
+	return () => {
+		window.removeEventListener('scroll', handleScroll)
+	}
+}, [lastScrollY])
+
 	return (
 		<header className='w-full overflow-x-hidden'>
-			<nav className='w-full z-40 fixed top-0 shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] bg-white dark:bg-gray-800'>
+			<nav
+				className={`w-full z-40 fixed top-0 shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)] bg-white dark:bg-gray-800 transition-transform duration-300 ${
+					showHeader ? 'translate-y-0' : '-translate-y-full'
+				}`}
+			>
 				<div className='w-full mx-auto flex justify-between items-center  px-[10px]'>
 					<div className='logo w-[100px] h-[100px] gap-[10px] flex items-center justify-center'>
 						<div
@@ -90,11 +118,8 @@ const Header = () => {
 							</NavLink>
 						</li>
 
-						
-						<li className={`${user?.role ? "" : "hidden"}`}>
-							<NavLink to={'seo'}>
-									{t("SEO boshqaruv paneli")}
-							</NavLink>
+						<li className={`${user?.role ? '' : 'hidden'}`}>
+							<NavLink to={'seo'}>{t('SEO boshqaruv paneli')}</NavLink>
 						</li>
 					</ul>
 
@@ -102,17 +127,16 @@ const Header = () => {
 						<button onClick={toggleTheme}>
 							{isDark ? <Sun className='text-[#D56A42]' /> : <Moon />}
 						</button>
-						
 
 						<select
-							defaultValue={""}
+							defaultValue={''}
 							onChange={e => {
 								changeLang(e.target.value)
 							}}
 							className='hidden md:block'
 						>
-							<option value="" className='dark:text-black '  disabled>
-								{t("Tilni tanlang")}
+							<option value='' className='dark:text-black ' disabled>
+								{t('Tilni tanlang')}
 							</option>
 							<option value='uz' className='dark:text-black'>
 								Uz
@@ -125,8 +149,7 @@ const Header = () => {
 							</option>
 						</select>
 
-
-						{ accessToken ? 	<ProfileMenu/> : null}
+						{accessToken ? <ProfileMenu /> : null}
 
 						<button
 							className={`${
