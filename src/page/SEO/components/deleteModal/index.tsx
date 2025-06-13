@@ -22,7 +22,7 @@ export default function DeletePopover({ onConfirm, children }: Props) {
           onClick={e => {
             e.stopPropagation()
           }}
-          className='bg-white/80 p-1.5 rounded-full shadow hover:bg-white hover:scale-[1.1] duration-300'
+          className='bg-white/80 p-1.5 rounded-full shadow hover:bg-white  duration-300'
         >
           <Trash size={16} className='text-red-600' />
         </button>

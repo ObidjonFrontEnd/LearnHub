@@ -62,10 +62,10 @@ const Chap = ({ data, setModal, averageStars }: ChapProps) => {
 	return (
 		<div className='w-full lg:w-[35%]'>
 			<div className='right w-full'>
-				<div className='img w-full relative h-[200px] md:h-[250px]  overflow-hidden'>
+				<div className='img w-full relative   overflow-hidden'>
 					<img
 						src={`${API}/image/${data?.data?.image}`}
-						className='w-full h-full'
+						className='w-full '
 						alt={data?.data?.name}
 					/>
 					<div
