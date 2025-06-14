@@ -17,6 +17,9 @@ import GetMyCenters from './page/SEO/components/getCard'
 import { useAuth } from './store/useAuth'
 import AddCenter from './page/SEO/components/addCenter'
 import EditCenter from './page/SEO/components/edite'
+import Queues from './page/queues'
+import LikedCenters from './page/likeCenters'
+import GetFillialsByid from './page/filials'
 
 function App() {
 	const isAuthenticated = useAuth(state => state.isAuthenticated())
@@ -29,10 +32,13 @@ function App() {
 				<Route path='/' element={<MainLayout />}>
 					<Route index element={<Home />} />
 					<Route path='/center/:id' element={<Center />} />
+					<Route path='/filials/:id' element={<GetFillialsByid/>} />
 
 					<Route element={<PrivateRoute />}>
 						<Route path='/profile' element={<Profile />} />
 						<Route path='/profile/edite' element={<ProfileEdite />} />
+						<Route path='/navbat' element={<Queues/>}/>
+						<Route path='/sevimli' element={<LikedCenters/>} />
 						<Route path='/seo'>
 							<Route path='myCenters' index element={<GetMyCenters />} />
 							<Route path='edite/:id' element={<EditCenter />} />

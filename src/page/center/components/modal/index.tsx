@@ -1,6 +1,7 @@
 import { API } from '@/hooks/useApi'
 import { useAuth } from '@/store/useAuth'
 import { useNotification } from '@/store/useNotification'
+import { useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -89,6 +90,8 @@ const DarsgaYozilishModal = ({
 	const [kun, setKun] = useState<string>('')
 	const [soat, setsoat] = useState<string>('')
 	const today = new Date().toISOString().split('T')[0]
+	const queryClient = useQueryClient()
+
 
 	const { accessToken } = useAuth()
 	const { setNotification } = useNotification()
@@ -113,6 +116,8 @@ const DarsgaYozilishModal = ({
 
 			if (response.status >= 200 && response.status < 400) {
 				setNotification(t("mufuaqatli saqlandi"), 'success')
+				queryClient.invalidateQueries({ queryKey: ['user'] })
+				handleClose()
 			}
 	
 	}

@@ -78,7 +78,40 @@
   "Filial nomi":"Filial nomi",
   "Filial nomini o‘zim kiritaman":"Filial nomini o‘zim kiritaman",
   "Filial rasmi":"Filial rasmi",
-  "Filial yaratish":"Filial yaratish"
+  "Filial yaratish":"Filial yaratish",
+  "Tashrif sanasi":"Tashrif sanasi",
+  "Yo'nalish":"Yo'nalish",
+  "Kutish":"Kutish",
+  "Sizda hali hech qanday uchrashuvlar yo'q":"Sizda hali hech qanday uchrashuvlar yo'q",
+  "Markazga qaytish":"Markazga qaytish",
+  "Markaz":"Markaz",
+  "Arizalar":"Arizalar",
+  "Holati":"Holati",
+  "Arizalar mavjud emas":"Arizalar mavjud emas",
+  "footer": {
+    "pages": "Sahifalar",
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "centers": "O‘quv Markazlar",
+    "contact": "Aloqa",
+
+    "categories": "Yo‘nalishlar",
+    "it": "IT",
+    "english": "Ingliz tili",
+    "math": "Matematika",
+    "smm": "SMM",
+    "design": "Dizayn",
+
+    "extra": "Qo‘shimcha",
+    "reviews": "Sharhlar",
+    "projects": "Loyihalar",
+    "marketing": "Marketing",
+    "sat": "SAT",
+    "business": "Biznes",
+
+    "rights": "Barcha huquqlar himoyalangan. ObidjonFrontEnd"
+  }
+
   
 
 
