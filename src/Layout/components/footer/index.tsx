@@ -59,7 +59,7 @@ export default function Footer() {
 
 			<div className='border-t border-white/30 mt-8 pt-4'>
 				<div className='max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4'>
-					<p className='text-sm text-white/90'>
+					<p className='text-sm text-white/90 text-center md:text-start'>
 						© 2025 Fndedu. {t('footer.rights')}
 					</p>
 					<div className='flex space-x-4'>
