@@ -20,6 +20,7 @@ import EditCenter from './page/SEO/components/edite'
 import Queues from './page/queues'
 import LikedCenters from './page/likeCenters'
 import GetFillialsByid from './page/filials'
+import Resurses from './page/resurslar'
 
 function App() {
 	const isAuthenticated = useAuth(state => state.isAuthenticated())
@@ -39,6 +40,8 @@ function App() {
 						<Route path='/profile/edite' element={<ProfileEdite />} />
 						<Route path='/navbat' element={<Queues/>}/>
 						<Route path='/sevimli' element={<LikedCenters/>} />
+						<Route path='/resurlar' element={<Resurses/>} />
+
 						<Route path='/seo'>
 							<Route path='myCenters' index element={<GetMyCenters />} />
 							<Route path='edite/:id' element={<EditCenter />} />
