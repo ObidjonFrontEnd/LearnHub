@@ -3,15 +3,15 @@ import axios from 'axios'
 import { API } from '@/hooks/useApi'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, Camera, Pencil } from 'lucide-react'
+import { ArrowLeft, Camera } from 'lucide-react'
 import { useImageUpload } from '@/components/I/uploadImage'
 import { useAuth } from '@/store/useAuth'
 import { useNotification } from '@/store/useNotification'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import DeletePopover from '../deleteModal'
 import AddBranchPopover from '../addFilial'
+import EditBranchPopover from '../editeFilial'
 
-// Типы
 type Params = {
 	id: string
 }
@@ -28,7 +28,7 @@ type Center = {
 	}
 }
 
-type Filial = {
+export type Filial = {
 	id: number
 	name: string
 	address: string
@@ -151,7 +151,11 @@ const EditCenter: React.FC = () => {
 						/>
 						<label className='absolute bottom-[15px] right-[15px] cursor-pointer flex items-center justify-center rounded-full w-[45px] h-[45px] bg-gray-300 text-[#D56A42]'>
 							<Camera size={20} />
-							<input type='file' className='hidden' onChange={handleImageChange} />
+							<input
+								type='file'
+								className='hidden'
+								onChange={handleImageChange}
+							/>
 						</label>
 
 						{imageLoading && (
@@ -170,7 +174,9 @@ const EditCenter: React.FC = () => {
 						</h2>
 
 						<div>
-							<label className='block text-sm font-medium'>{t('Markaz nomi')}</label>
+							<label className='block text-sm font-medium'>
+								{t('Markaz nomi')}
+							</label>
 							<input
 								type='text'
 								value={name}
@@ -180,7 +186,9 @@ const EditCenter: React.FC = () => {
 						</div>
 
 						<div>
-							<label className='block text-sm font-medium'>{t('Markaz manzili')}</label>
+							<label className='block text-sm font-medium'>
+								{t('Markaz manzili')}
+							</label>
 							<input
 								type='text'
 								value={address}
@@ -190,7 +198,9 @@ const EditCenter: React.FC = () => {
 						</div>
 
 						<div>
-							<label className='block text-sm font-medium'>{t('Markaz telefon raqami')}</label>
+							<label className='block text-sm font-medium'>
+								{t('Markaz telefon raqami')}
+							</label>
 							<input
 								type='text'
 								value={phone}
@@ -217,13 +227,22 @@ const EditCenter: React.FC = () => {
 
 				<div className='mt-[25px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
 					{filials?.map(({ id, name, address, phone, image }) => (
-						<div key={id} className='border p-[10px] rounded-[8px] shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]'>
+						<div
+							key={id}
+							className='border p-[10px] rounded-[8px] shadow-lg dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]'
+						>
 							<div className='flex justify-between items-start mb-[10px]'>
 								<h2 className='font-bold'>{name}</h2>
 								<div className='flex gap-[10px] items-center'>
-									<button className='text-yellow-400 rounded-full bg-white/80 p-1.5 shadow hover:bg-white duration-300'>
-										<Pencil size={16} />
-									</button>
+									<EditBranchPopover
+										initialData={{
+											id,
+											name,
+											address,
+											phone,
+											image,
+										}}
+									/>
 									<DeletePopover onConfirm={() => handleDelete(id)} />
 								</div>
 							</div>
@@ -231,7 +250,11 @@ const EditCenter: React.FC = () => {
 								<p className='text-gray-500'>{address}</p>
 								<p className='text-gray-500'>{phone}</p>
 							</div>
-							<img src={`${API}/image/${image}`} alt={name} className='w-full rounded-[8px]' />
+							<img
+								src={`${API}/image/${image}`}
+								alt={name}
+								className='w-full rounded-[8px]'
+							/>
 						</div>
 					))}
 				</div>

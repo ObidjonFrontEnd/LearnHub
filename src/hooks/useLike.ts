@@ -1,4 +1,3 @@
-
 import { API } from '@/hooks/useApi'
 import { useAuth } from '@/store/useAuth'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
@@ -12,6 +11,7 @@ export type LikedCenter = {
 export const useLikes = () => {
 	const { accessToken } = useAuth()
 	const queryClient = useQueryClient()
+
 
 	const getLikes = async (): Promise<LikedCenter[]> => {
 		const res = await axios.get(`${API}/liked`, {
@@ -29,9 +29,11 @@ export const useLikes = () => {
 		retry: false,
 	})
 
+
 	const isLiked = (centerId: number) => {
 		return likedData.some((like) => like.centerId === centerId)
 	}
+
 
 	const toggleLike = async (centerId: number) => {
 		const likedItem = likedData.find((item) => item.centerId === centerId)
@@ -49,6 +51,7 @@ export const useLikes = () => {
 				},
 			})
 		}
+
 
 		queryClient.invalidateQueries({ queryKey: ['getLike'] })
 	}
