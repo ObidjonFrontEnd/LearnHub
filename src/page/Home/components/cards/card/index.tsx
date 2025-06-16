@@ -12,7 +12,7 @@ type MajorItem = {
 	updatedAt: string
 }
 
-type Center = {
+export type Center = {
 	id: number
 	name: string
 	phone: string
@@ -34,41 +34,44 @@ type Props = {
 const Card: React.FC<Props> = ({ center, isLiked, onToggleLike }) => {
 	const { accessToken } = useAuth()
 
-	const handleLikeToggle = async () => {
+	const handleLikeToggle = (e: React.MouseEvent) => {
+		e.preventDefault()
 		if (!accessToken) return
-		await onToggleLike()
+		onToggleLike()
 	}
-	console.log('CENTER:', center.id, 'LIKED:' , isLiked)
-
 
 	return (
-		<div className='relative'>
-			<div
-				className='absolute z-20 top-[20px] hover:scale-[1.2] duration-300 right-[20px] text-red-500 bg-gray-200 rounded-full px-[8px] py-[8px]'
+		<div className='relative group'>
+			{/* Like button */}
+			<button
 				onClick={handleLikeToggle}
+				className='absolute z-20 top-4 right-4 text-red-500 bg-gray-200 hover:scale-110 transition-transform duration-300 rounded-full p-2'
 			>
-				<Heart fill={isLiked ? 'red' : 'none'} />
-			</div>
+				<Heart
+					className='w-5 h-5'
+					fill={isLiked ? 'red' : 'none'}
+				/>
+			</button>
 
+			{/* Card content */}
 			<Link
 				to={`/center/${center.id}`}
-				className='w-full h-full rounded-[10px] overflow-hidden pt-0'
+				className='block w-full h-full rounded-[10px] overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300'
 			>
 				<div className='w-full h-[250px] md:h-[280px] overflow-hidden'>
 					<img
 						src={`${API}/image/${center.image}`}
 						alt={center.name}
-						className='w-full h-full rounded relative z-10 object-cover'
+						className='w-full h-full object-cover'
 					/>
 				</div>
-				<div className='px-[15px] py-[15px] dark:text-white'>
+				<div className='p-4 dark:text-white'>
 					<h2 className='text-xl font-bold mb-2'>{center.name}</h2>
-					<div className='text-sm text-gray-700 dark:text-white mb-[10px] flex items-center gap-[10px]'>
-						<MapPin size={20} />
-						{center.address}
+					<div className='text-sm text-gray-700 dark:text-white mb-2 flex items-center gap-2'>
+						<MapPin size={18} /> {center.address}
 					</div>
-					<div className='text-sm dark:text-white text-gray-600 flex items-center gap-[10px]'>
-						<Phone size={20} /> {center.phone}
+					<div className='text-sm text-gray-600 dark:text-white flex items-center gap-2'>
+						<Phone size={18} /> {center.phone}
 					</div>
 				</div>
 			</Link>
